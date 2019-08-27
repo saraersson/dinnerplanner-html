@@ -3,7 +3,6 @@ class DinnerModel {
 
   constructor() {
     this.dishes = dishesConst;
-
     //TODO Lab 0
     // implement the data structure that will hold number of guests
     this.numberOfGuests = 0;
@@ -14,10 +13,9 @@ class DinnerModel {
 
   setNumberOfGuests(num) {
     //TODO Lab 0
-    if(num < 1) {
-      return;
+    if(num >= 0) {
+      this.numberOfGuests = num;
     }
-    this.numberOfGuests = num;
   }
 
   getNumberOfGuests() {
@@ -28,16 +26,16 @@ class DinnerModel {
   //Returns the dish that is on the menu for selected type
   getSelectedDish(type) {
     //TODO Lab 0
-    for(var i = 0; i < selectedDishes.length; j++) {
-      if(selectedDishes[i].type == type) {
-        return selectedDishes[i];
+    for(var i = 0; i < this.selectedDishes.length; j++) {
+      if(this.selectedDishes[i].type == type) {
+        return this.selectedDishes[i];
       }
     }
   }
 
   //Returns all the dishes on the menu.
   getFullMenu() {
-    //TODO Lab 0
+     return this.selectedDishes;
   }
 
   //Returns all ingredients for all the dishes on the menu.
@@ -53,31 +51,34 @@ class DinnerModel {
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
   //it is removed from the menu and the new one added.
   addDishToMenu(id) {
-    var newDish = getDish(id);
-    if(selectedDishes.length == 0) {
-      selectedDishes.push(newDish);
-      return;
-    }
-    for(var i = 0; i < this.dishes.length; i++) {
-      if(this.dishes[i].id == id) {
+    var newDish = this.getDish(id);
+
+    console.log("id: " + id);
+
+    for(var i = 0; i < this.selectedDishes.length; i++) {
+      console.log("i: " + i);
+      if(this.selectedDishes[i].id == id) {
         var dishType = this.dishes[i].type;
-        for(var j = 0; j < selectedDishes; j++) {
-          if(selectedDishes[j].type == dishType) {
-            selectedDishes.splice(j, 1);
+        for(var j = 0; j < this.selectedDishes; j++) {
+          if(this.selectedDishes[j].type == dishType) {
+            console.log("same!!!");
+            this.removeDishFromMenu(id);
           }
-          selectedDishes.push(dishType);
+          this.selectedDishes.push(dishType);
           return;
         }
       }
     }
+    this.selectedDishes.push(newDish);
+    console.log(this.selectedDishes);
   }
 
   //Removes dish from menu
   removeDishFromMenu(id) {
     //TODO Lab 0
-    for(var j = 0; j < selectedDishes; j++) {
-      if(selectedDishes[j].id == id) {
-        selectedDishes.splice(j, 1);
+    for(var j = 0; j < this.selectedDishes.length; j++) {
+      if(this.selectedDishes[j].id == id) {
+        this.selectedDishes.splice(j, 1);
       }
       return;
     }
@@ -107,8 +108,8 @@ class DinnerModel {
           found = true;
         }
       }
-
-      if(type == undefined) {
+      console.log("type: " + type + " query: " + query);
+      if(type == "" || type == undefined) {
         return found;
       }
       else {
@@ -119,10 +120,8 @@ class DinnerModel {
 
   //Returns a dish of specific ID
   getDish(id) {
-    console.log(id);
     for (let dsh of this.dishes) {
       if (dsh.id === id) {
-        console.log(dsh);
         return dsh;
       }
     }
