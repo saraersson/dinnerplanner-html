@@ -118,4 +118,21 @@ describe("DinnerModel", () => {
       expect(model.getFullMenu()).to.not.include(model.getDish(1));
     });
   });
+
+
+  describe("ingredients", () => {
+    it("can get all ingredients", () => {
+      model.addDishToMenu(1);
+      const ingredients = model.getDish(1).ingredients;
+      expect(model.getAllIngredients()).to.include(ingredients);
+    });
+  });
+
+  describe("cost", () => {
+    it("can calculate total cost", () => {
+      model.addDishToMenu(1);
+      const totalCost = 31;
+      expect(model.getTotalMenuPrice()).to.equal(totalCost * model.numberOfGuests);
+    });
+  });
 });
