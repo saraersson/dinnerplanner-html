@@ -26,7 +26,7 @@ class DinnerModel {
   //Returns the dish that is on the menu for selected type
   getSelectedDish(type) {
     //TODO Lab 0
-    for(var i = 0; i < this.selectedDishes.length; j++) {
+    for(var i = 0; i < this.selectedDishes.length; i++) {
       if(this.selectedDishes[i].type == type) {
         return this.selectedDishes[i];
       }
@@ -52,25 +52,12 @@ class DinnerModel {
   //it is removed from the menu and the new one added.
   addDishToMenu(id) {
     var newDish = this.getDish(id);
+    var oldDish = this.getSelectedDish(newDish.type);
 
-    console.log("id: " + id);
-
-    for(var i = 0; i < this.selectedDishes.length; i++) {
-      console.log("i: " + i);
-      if(this.selectedDishes[i].id == id) {
-        var dishType = this.dishes[i].type;
-        for(var j = 0; j < this.selectedDishes; j++) {
-          if(this.selectedDishes[j].type == dishType) {
-            console.log("same!!!");
-            this.removeDishFromMenu(id);
-          }
-          this.selectedDishes.push(dishType);
-          return;
-        }
-      }
+    if(oldDish != undefined) {
+      this.removeDishFromMenu(oldDish.id);
     }
     this.selectedDishes.push(newDish);
-    console.log(this.selectedDishes);
   }
 
   //Removes dish from menu
@@ -108,7 +95,6 @@ class DinnerModel {
           found = true;
         }
       }
-      console.log("type: " + type + " query: " + query);
       if(type == "" || type == undefined) {
         return found;
       }
