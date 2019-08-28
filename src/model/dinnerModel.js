@@ -42,8 +42,13 @@ class DinnerModel {
   getAllIngredients() {
     //TODO Lab 0
     var ingredients = [];
+    console.log("By function")
     for (let dish of this.selectedDishes) {
-      ingredients.push(dish.ingredients);
+      console.log(dish);
+      for(let ing of dish.ingredients) {
+        console.log(ing);
+        ingredients.push(ing);
+      }
     }
     return ingredients;
   }
@@ -54,10 +59,8 @@ class DinnerModel {
     var totalCost = 0;
     const ingredients = this.getAllIngredients();
     for(let ing of ingredients) {
-      for(let i of ing){
-        totalCost += i.price;
-        console.log(ing);
-      }
+        totalCost += ing.price;
+      //  console.log(ing);
     }
     return totalCost * this.numberOfGuests;
   }
@@ -66,7 +69,10 @@ class DinnerModel {
   //it is removed from the menu and the new one added.
   addDishToMenu(id) {
     var newDish = this.getDish(id);
-    console.log(newDish);
+  //  console.log(newDish);
+    if(newDish == undefined) {
+      return
+    }
     var oldDish = this.getSelectedDish(newDish.type);
 
     if(oldDish != undefined) {

@@ -123,15 +123,24 @@ describe("DinnerModel", () => {
   describe("ingredients", () => {
     it("can get all ingredients", () => {
       model.addDishToMenu(1);
-      const ingredients = model.getDish(1).ingredients;
-      expect(model.getAllIngredients()).to.include(ingredients);
+      model.addDishToMenu(100);
+      var ingredients = [];
+
+      for(let ing of model.getDish(1).ingredients) {
+        ingredients.push(ing);
+      }
+      for(let ing of model.getDish(100).ingredients) {
+        ingredients.push(ing);
+      }
+      assert(JSON.stringify(model.getAllIngredients()) === JSON.stringify(ingredients));
     });
   });
 
   describe("cost", () => {
     it("can calculate total cost", () => {
       model.addDishToMenu(1);
-      const totalCost = 31;
+      model.addDishToMenu(100);
+      const totalCost = 90;
       expect(model.getTotalMenuPrice()).to.equal(totalCost * model.numberOfGuests);
     });
   });
