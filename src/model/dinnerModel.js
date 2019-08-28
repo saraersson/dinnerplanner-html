@@ -3,10 +3,7 @@ class DinnerModel {
 
   constructor() {
     this.dishes = dishesConst;
-    //TODO Lab 0
-    // implement the data structure that will hold number of guests
     this.numberOfGuests = 0;
-    // and selected dishes for the dinner menu
     this.selectedDishes = [];
 
   }
@@ -25,7 +22,6 @@ class DinnerModel {
 
   //Returns the dish that is on the menu for selected type
   getSelectedDish(type) {
-    //TODO Lab 0
     for(var i = 0; i < this.selectedDishes.length; i++) {
       if(this.selectedDishes[i].type == type) {
         return this.selectedDishes[i];
@@ -40,13 +36,9 @@ class DinnerModel {
 
   //Returns all ingredients for all the dishes on the menu.
   getAllIngredients() {
-    //TODO Lab 0
     var ingredients = [];
-    console.log("By function")
     for (let dish of this.selectedDishes) {
-      console.log(dish);
       for(let ing of dish.ingredients) {
-        console.log(ing);
         ingredients.push(ing);
       }
     }
@@ -55,12 +47,10 @@ class DinnerModel {
 
   //Returns the total price of the menu (all the ingredients multiplied by number of guests).
   getTotalMenuPrice() {
-    //TODO Lab 0
     var totalCost = 0;
     const ingredients = this.getAllIngredients();
     for(let ing of ingredients) {
         totalCost += ing.price;
-      //  console.log(ing);
     }
     return totalCost * this.numberOfGuests;
   }
@@ -69,7 +59,6 @@ class DinnerModel {
   //it is removed from the menu and the new one added.
   addDishToMenu(id) {
     var newDish = this.getDish(id);
-  //  console.log(newDish);
     if(newDish == undefined) {
       return
     }
@@ -83,7 +72,6 @@ class DinnerModel {
 
   //Removes dish from menu
   removeDishFromMenu(id) {
-    //TODO Lab 0
     for(var j = 0; j < this.selectedDishes.length; j++) {
       if(this.selectedDishes[j].id == id) {
         this.selectedDishes.splice(j, 1);
