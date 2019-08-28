@@ -110,12 +110,15 @@ describe("DinnerModel", () => {
 
     it("can remove dishes", () => {
       model.addDishToMenu(1);
+      model.addDishToMenu(100);
       // dish 1 should be in the menu
       expect(model.getFullMenu()).to.include(model.getDish(1));
+      expect(model.getFullMenu()).to.include(model.getDish(100));
 
-      model.removeDishFromMenu(1);
+      model.removeDishFromMenu(100);
       // should now be removed
-      expect(model.getFullMenu()).to.not.include(model.getDish(1));
+      expect(model.getFullMenu()).to.include(model.getDish(1));
+      expect(model.getFullMenu()).to.not.include(model.getDish(100));
     });
   });
 

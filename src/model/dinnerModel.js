@@ -9,24 +9,18 @@ class DinnerModel {
   }
 
   setNumberOfGuests(num) {
-    //TODO Lab 0
     if(num >= 0) {
       this.numberOfGuests = num;
     }
   }
 
   getNumberOfGuests() {
-    //TODO Lab 0
     return this.numberOfGuests;
   }
 
   //Returns the dish that is on the menu for selected type
   getSelectedDish(type) {
-    for(var i = 0; i < this.selectedDishes.length; i++) {
-      if(this.selectedDishes[i].type == type) {
-        return this.selectedDishes[i];
-      }
-    }
+    return this.selectedDishes.find(dish => dish.type == type);
   }
 
   //Returns all the dishes on the menu.
@@ -36,23 +30,13 @@ class DinnerModel {
 
   //Returns all ingredients for all the dishes on the menu.
   getAllIngredients() {
-    var ingredients = [];
-    for (let dish of this.selectedDishes) {
-      for(let ing of dish.ingredients) {
-        ingredients.push(ing);
-      }
-    }
-    return ingredients;
+    return this.selectedDishes.map(dish => dish.ingredients).flat();
   }
 
   //Returns the total price of the menu (all the ingredients multiplied by number of guests).
   getTotalMenuPrice() {
-    var totalCost = 0;
-    const ingredients = this.getAllIngredients();
-    for(let ing of ingredients) {
-        totalCost += ing.price;
-    }
-    return totalCost * this.numberOfGuests;
+    return this.getAllIngredients().reduce((acc, elem) => acc + elem.price, 0) * this.numberOfGuests;
+  //  return totalCost * this.numberOfGuests;
   }
 
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
@@ -72,13 +56,7 @@ class DinnerModel {
 
   //Removes dish from menu
   removeDishFromMenu(id) {
-    for(var j = 0; j < this.selectedDishes.length; j++) {
-      if(this.selectedDishes[j].id == id) {
-        this.selectedDishes.splice(j, 1);
-      }
-      return;
-    }
-    return;
+    this.selectedDishes.splice(this.selectedDishes.indexOf(this.selectedDishes.find(dish => dish.id == id)), 1);
   }
 
 
